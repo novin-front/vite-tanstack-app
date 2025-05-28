@@ -6,7 +6,10 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [TanStackRouterVite(), react(),VitePWA({
+  plugins: [
+    TanStackRouterVite(),
+    react(),
+    VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       manifest: {
@@ -94,7 +97,9 @@ export default defineConfig({
         skipWaiting: true,
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
       },
-    }),],
+    }),
+  ],
+  assetsInclude: ['**/*.woff2'], // Include WOFF2 files as assets
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

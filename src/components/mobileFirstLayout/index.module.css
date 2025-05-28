@@ -1,0 +1,15 @@
+/* Responsive container styles */
+.container {
+  /* Standard mobile container */
+  max-width: 576px;
+  margin: 0 auto;
+  padding: 0 !important;
+}
+
+/* Tablet breakpoint */
+@media (601px <= width <= 1024px) {
+  .container {
+    /* Standard tablet container */
+    max-width: 768px;
+  }
+}
