@@ -1,27 +1,10 @@
-import { useEffect } from 'react'
+import '@fontsource/open-sans/300.css'
+import '@fontsource/open-sans/400.css'
+import '@fontsource/open-sans/600.css'
+import '@fontsource/open-sans/700.css'
 
-export function OpenSansFont() {
-  useEffect(() => {
-    const style = document.createElement('style')
-    style.innerHTML = `
-      @font-face {
-        font-family: 'Open Sans';
-        src: url('/src/assets/fonts/OpenSans-Regular.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-      }
-      @font-face {
-        font-family: 'Open Sans';
-        src: url('/src/assets/fonts/OpenSans-Bold.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
-      }
-    `
-    document.head.appendChild(style)
-    return () => {
-      document.head.removeChild(style)
-    }
-  }, [])
-
-  return null
+export const opensans = {
+  style: {
+    fontFamily: '"Open Sans", sans-serif',
+  },
 }

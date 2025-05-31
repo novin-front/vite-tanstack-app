@@ -56,7 +56,7 @@ const LocaleAboutRouteRoute = LocaleAboutRouteImport.update({
 )
 
 const LocaleAuthRouteRoute = LocaleAuthRouteImport.update({
-  id: '/$locale/_auth',
+  id: '/_auth',
   getParentRoute: () => LocaleRoute,
 } as any)
 

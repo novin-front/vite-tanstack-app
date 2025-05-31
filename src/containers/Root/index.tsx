@@ -4,7 +4,7 @@ import { Route as aboutRoute } from '@/routes/$locale/about/route'
 
 export const Root = () => {
   const { t, i18n } = useTranslation('common')
-
+  console.log('i18n ==>', i18n)
   return (
     <div>
       {t('title')}

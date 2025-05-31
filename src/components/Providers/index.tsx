@@ -4,7 +4,7 @@ import {
   ColorSchemeScript,
   DirectionProvider,
 } from '@mantine/core'
-import { createTheme } from '@/utils/theme'
+import { createAppTheme } from '@/utils/theme'
 import { queryClient } from '@/api/config'
 import { RouterProvider } from './RouterProvider'
 import { DeviceRestriction } from '../deviceRestriction'
@@ -14,7 +14,10 @@ export const Providers = () => {
     <QueryClientProvider client={queryClient}>
       <DirectionProvider>
         <ColorSchemeScript defaultColorScheme="auto" />
-        <MantineProvider theme={createTheme()} withCssVariables>
+        <MantineProvider
+          theme={createAppTheme({ dir: 'rtl' })}
+          withCssVariables
+        >
           <DeviceRestriction>
             <RouterProvider />
           </DeviceRestriction>
