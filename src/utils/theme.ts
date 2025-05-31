@@ -13,9 +13,12 @@ type ThemeParams = {
 } | void
 
 export const createAppTheme = (themeParams: ThemeParams) => {
+  const lang = localStorage.getItem('i18nextLng')
+  const dir = themeParams?.dir || (lang === 'en' ? 'ltr' : 'rtl')
+  console.log('dir =>', dir)
   return createTheme({
     fontFamily: (() => {
-      switch (themeParams?.dir) {
+      switch (dir) {
         case 'rtl':
           return vazirmatn.style.fontFamily
         case 'ltr':

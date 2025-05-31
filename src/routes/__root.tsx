@@ -9,19 +9,24 @@ import { queryClient } from '@/api/config'
 import { i18n } from '@/locales/i18n'
 import { NotFound } from '@/containers/NotFound'
 import { Auth } from '@/utils/auth'
+import { LocaleProvider } from '@/contexts/LocaleContext'
 
 export const Route = createRootRouteWithContext<{
   queryClient: typeof queryClient
   i18n: typeof i18n
   auth: Auth
 }>()({
-  component: () => (
-    <>
-      <Outlet />
-      <ReactQueryDevtools />
-      <TanStackRouterDevtools />
-    </>
-  ),
+  component: () => {
+    return (
+      <>
+        <LocaleProvider>
+          <Outlet />
+        </LocaleProvider>
+        <ReactQueryDevtools />
+        <TanStackRouterDevtools />
+      </>
+    )
+  },
   notFoundComponent: NotFound,
   beforeLoad: ({ context: { i18n }, location }) => {
     /**

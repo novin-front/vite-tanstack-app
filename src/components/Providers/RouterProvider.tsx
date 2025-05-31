@@ -6,6 +6,5 @@ const router = createRouter()
 
 export const RouterProvider = () => {
   // we can hydrate the initial state of 'auth' here
-
   return <TanstackRouterProvider router={router} context={{ auth }} />
 }
