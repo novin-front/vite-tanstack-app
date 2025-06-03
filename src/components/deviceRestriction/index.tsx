@@ -40,22 +40,14 @@ export const DeviceRestriction = ({
 
   if (!isAllowedDevice) {
     return (
-      <Container
-        size="sm"
-        style={{ textAlign: 'center', padding: '2rem' }}
-        dir="rtl"
-      >
+      <Container size="sm" style={{ textAlign: 'center', padding: '2rem' }}>
         <Title order={2} mb="lg">
           دسترسی محدود
         </Title>
         <Text mb="lg">
           این اپلیکیشن فقط روی گوشی‌ها و تبلت‌های اندروید و iOS در دسترس است.
         </Text>
-        <Button
-          color="brand"
-          onClick={() => window.location.reload()}
-          style={{ fontFamily: "'Vazirmatn', sans-serif" }}
-        >
+        <Button color="primary" onClick={() => window.location.reload()}>
           تلاش دوباره
         </Button>
       </Container>

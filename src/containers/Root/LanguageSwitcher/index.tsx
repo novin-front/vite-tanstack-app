@@ -19,7 +19,7 @@ export const LanguageSwitcher = () => {
         color="dark"
         onClick={() => changeLanguage(locale === 'fa' ? 'en' : 'fa')}
       >
-        {locale === 'fa' ? 'فارسی' : 'English'}
+        {locale === 'fa' ? 'English' : 'فارسی'}
       </Button>
     </div>
   )

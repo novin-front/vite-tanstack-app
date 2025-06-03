@@ -1,6 +1,7 @@
 // src/contexts/LocaleContext.tsx
 import { createContext, useContext, useState, useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
 type LocaleContextType = {
   locale: string
@@ -18,6 +19,7 @@ export const useLocale = () => {
 export const LocaleProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate()
   const [locale, setLocale] = useState<string>('en') // مقدار پیش‌فرض
+  const { i18n } = useTranslation()
 
   // به‌روزرسانی زبان بر اساس URL
   useEffect(() => {
@@ -26,6 +28,7 @@ export const LocaleProvider = ({ children }: { children: React.ReactNode }) => {
     if (['en', 'fa'].includes(urlLocale)) {
       setLocale(urlLocale)
       localStorage.setItem('locale', urlLocale)
+      i18n.changeLanguage(urlLocale)
     }
   }, [])
   useEffect(() => {

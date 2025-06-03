@@ -7,6 +7,7 @@ import {
 
 import { iransansx } from '@/utils/fonts/iransansx'
 import { montserrat } from '@/utils/fonts/montserrat'
+import { useTranslation } from 'react-i18next'
 
 type ThemeParams = {
   dir?: 'ltr' | 'rtl'
@@ -49,8 +50,9 @@ const darkColors = {
 }
 
 export const createAppTheme = (themeParams: ThemeParams) => {
-  const lang = localStorage.getItem('i18nextLng')
-  const dir = themeParams?.dir || (lang === 'en' ? 'ltr' : 'rtl')
+  const { i18n } = useTranslation()
+  const locale = i18n.language
+  const dir = themeParams?.dir || (locale === 'en' ? 'ltr' : 'rtl')
   console.log('dir =>', dir)
 
   return createTheme({
