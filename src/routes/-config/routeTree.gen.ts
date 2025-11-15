@@ -10,144 +10,190 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 
-// Import Routes
+import { Route as rootRouteImport } from './../__root'
+import { Route as IndexRouteImport } from './../index'
+import { Route as LocaleLoginRouteRouteImport } from './../$locale/login/route'
+import { Route as LocaleAboutRouteRouteImport } from './../$locale/about/route'
+import { Route as LocaleAuthRouteRouteImport } from './../$locale/_auth/route'
+import { Route as LocaleIndexRouteRouteImport } from './../$locale/index/route'
+import { Route as LocaleAuthProfileRouteRouteImport } from './../$locale/_auth/profile/route'
+import { Route as LocaleAuthDashboardRouteRouteImport } from './../$locale/_auth/dashboard/route'
 
-import { Route as rootRoute } from './../__root'
-import { Route as IndexImport } from './../index'
-import { Route as LocaleLoginRouteImport } from './../$locale/login/route'
-import { Route as LocaleAboutRouteImport } from './../$locale/about/route'
-import { Route as LocaleAuthRouteImport } from './../$locale/_auth/route'
-import { Route as LocaleIndexRouteImport } from './../$locale/index/route'
-import { Route as LocaleAuthProfileRouteImport } from './../$locale/_auth/profile/route'
-import { Route as LocaleAuthDashboardRouteImport } from './../$locale/_auth/dashboard/route'
+const LocaleRouteImport = createFileRoute('/$locale')()
 
-// Create Virtual Routes
-
-const LocaleImport = createFileRoute('/$locale')()
-
-// Create/Update Routes
-
-const LocaleRoute = LocaleImport.update({
+const LocaleRoute = LocaleRouteImport.update({
   id: '/$locale',
   path: '/$locale',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const IndexRoute = IndexImport.update({
+const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const LocaleLoginRouteRoute = LocaleLoginRouteImport.update({
+const LocaleLoginRouteRoute = LocaleLoginRouteRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => LocaleRoute,
 } as any).lazy(() =>
   import('./../$locale/login/route.lazy').then((d) => d.Route),
 )
-
-const LocaleAboutRouteRoute = LocaleAboutRouteImport.update({
+const LocaleAboutRouteRoute = LocaleAboutRouteRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => LocaleRoute,
 } as any).lazy(() =>
   import('./../$locale/about/route.lazy').then((d) => d.Route),
 )
-
-const LocaleAuthRouteRoute = LocaleAuthRouteImport.update({
+const LocaleAuthRouteRoute = LocaleAuthRouteRouteImport.update({
   id: '/_auth',
   getParentRoute: () => LocaleRoute,
 } as any)
-
-const LocaleIndexRouteRoute = LocaleIndexRouteImport.update({
+const LocaleIndexRouteRoute = LocaleIndexRouteRouteImport.update({
   id: '/$locale/',
-  path: '/$locale/',
-  getParentRoute: () => rootRoute,
+  path: '/$locale',
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
   import('./../$locale/index/route.lazy').then((d) => d.Route),
 )
-
-const LocaleAuthProfileRouteRoute = LocaleAuthProfileRouteImport.update({
+const LocaleAuthProfileRouteRoute = LocaleAuthProfileRouteRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => LocaleAuthRouteRoute,
 } as any).lazy(() =>
   import('./../$locale/_auth/profile/route.lazy').then((d) => d.Route),
 )
+const LocaleAuthDashboardRouteRoute =
+  LocaleAuthDashboardRouteRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => LocaleAuthRouteRoute,
+  } as any).lazy(() =>
+    import('./../$locale/_auth/dashboard/route.lazy').then((d) => d.Route),
+  )
 
-const LocaleAuthDashboardRouteRoute = LocaleAuthDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => LocaleAuthRouteRoute,
-} as any).lazy(() =>
-  import('./../$locale/_auth/dashboard/route.lazy').then((d) => d.Route),
-)
-
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/$locale': typeof LocaleAuthRouteRouteWithChildren
+  '/$locale/about': typeof LocaleAboutRouteRoute
+  '/$locale/login': typeof LocaleLoginRouteRoute
+  '/$locale/dashboard': typeof LocaleAuthDashboardRouteRoute
+  '/$locale/profile': typeof LocaleAuthProfileRouteRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/$locale': typeof LocaleAuthRouteRouteWithChildren
+  '/$locale/about': typeof LocaleAboutRouteRoute
+  '/$locale/login': typeof LocaleLoginRouteRoute
+  '/$locale/dashboard': typeof LocaleAuthDashboardRouteRoute
+  '/$locale/profile': typeof LocaleAuthProfileRouteRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/$locale/': typeof LocaleIndexRouteRoute
+  '/$locale': typeof LocaleRouteWithChildren
+  '/$locale/_auth': typeof LocaleAuthRouteRouteWithChildren
+  '/$locale/about': typeof LocaleAboutRouteRoute
+  '/$locale/login': typeof LocaleLoginRouteRoute
+  '/$locale/_auth/dashboard': typeof LocaleAuthDashboardRouteRoute
+  '/$locale/_auth/profile': typeof LocaleAuthProfileRouteRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/$locale'
+    | '/$locale/about'
+    | '/$locale/login'
+    | '/$locale/dashboard'
+    | '/$locale/profile'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/$locale'
+    | '/$locale/about'
+    | '/$locale/login'
+    | '/$locale/dashboard'
+    | '/$locale/profile'
+  id:
+    | '__root__'
+    | '/'
+    | '/$locale/'
+    | '/$locale'
+    | '/$locale/_auth'
+    | '/$locale/about'
+    | '/$locale/login'
+    | '/$locale/_auth/dashboard'
+    | '/$locale/_auth/profile'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  LocaleIndexRouteRoute: typeof LocaleIndexRouteRoute
+  LocaleRoute: typeof LocaleRouteWithChildren
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/$locale/': {
-      id: '/$locale/'
-      path: '/$locale'
-      fullPath: '/$locale'
-      preLoaderRoute: typeof LocaleIndexRouteImport
-      parentRoute: typeof rootRoute
-    }
     '/$locale': {
       id: '/$locale'
       path: '/$locale'
       fullPath: '/$locale'
-      preLoaderRoute: typeof LocaleImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof LocaleRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/$locale/_auth': {
-      id: '/$locale/_auth'
-      path: '/$locale'
-      fullPath: '/$locale'
-      preLoaderRoute: typeof LocaleAuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/login': {
+      id: '/$locale/login'
+      path: '/login'
+      fullPath: '/$locale/login'
+      preLoaderRoute: typeof LocaleLoginRouteRouteImport
       parentRoute: typeof LocaleRoute
     }
     '/$locale/about': {
       id: '/$locale/about'
       path: '/about'
       fullPath: '/$locale/about'
-      preLoaderRoute: typeof LocaleAboutRouteImport
-      parentRoute: typeof LocaleImport
+      preLoaderRoute: typeof LocaleAboutRouteRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/$locale/login': {
-      id: '/$locale/login'
-      path: '/login'
-      fullPath: '/$locale/login'
-      preLoaderRoute: typeof LocaleLoginRouteImport
-      parentRoute: typeof LocaleImport
+    '/$locale/_auth': {
+      id: '/$locale/_auth'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleAuthRouteRouteImport
+      parentRoute: typeof LocaleRoute
     }
-    '/$locale/_auth/dashboard': {
-      id: '/$locale/_auth/dashboard'
-      path: '/dashboard'
-      fullPath: '/$locale/dashboard'
-      preLoaderRoute: typeof LocaleAuthDashboardRouteImport
-      parentRoute: typeof LocaleAuthRouteImport
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleIndexRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/$locale/_auth/profile': {
       id: '/$locale/_auth/profile'
       path: '/profile'
       fullPath: '/$locale/profile'
-      preLoaderRoute: typeof LocaleAuthProfileRouteImport
-      parentRoute: typeof LocaleAuthRouteImport
+      preLoaderRoute: typeof LocaleAuthProfileRouteRouteImport
+      parentRoute: typeof LocaleAuthRouteRoute
+    }
+    '/$locale/_auth/dashboard': {
+      id: '/$locale/_auth/dashboard'
+      path: '/dashboard'
+      fullPath: '/$locale/dashboard'
+      preLoaderRoute: typeof LocaleAuthDashboardRouteRouteImport
+      parentRoute: typeof LocaleAuthRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface LocaleAuthRouteRouteChildren {
   LocaleAuthDashboardRouteRoute: typeof LocaleAuthDashboardRouteRoute
@@ -178,131 +224,11 @@ const LocaleRouteChildren: LocaleRouteChildren = {
 const LocaleRouteWithChildren =
   LocaleRoute._addFileChildren(LocaleRouteChildren)
 
-export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/$locale': typeof LocaleAuthRouteRouteWithChildren
-  '/$locale/about': typeof LocaleAboutRouteRoute
-  '/$locale/login': typeof LocaleLoginRouteRoute
-  '/$locale/dashboard': typeof LocaleAuthDashboardRouteRoute
-  '/$locale/profile': typeof LocaleAuthProfileRouteRoute
-}
-
-export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/$locale': typeof LocaleAuthRouteRouteWithChildren
-  '/$locale/about': typeof LocaleAboutRouteRoute
-  '/$locale/login': typeof LocaleLoginRouteRoute
-  '/$locale/dashboard': typeof LocaleAuthDashboardRouteRoute
-  '/$locale/profile': typeof LocaleAuthProfileRouteRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/$locale/': typeof LocaleIndexRouteRoute
-  '/$locale': typeof LocaleRouteWithChildren
-  '/$locale/_auth': typeof LocaleAuthRouteRouteWithChildren
-  '/$locale/about': typeof LocaleAboutRouteRoute
-  '/$locale/login': typeof LocaleLoginRouteRoute
-  '/$locale/_auth/dashboard': typeof LocaleAuthDashboardRouteRoute
-  '/$locale/_auth/profile': typeof LocaleAuthProfileRouteRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/$locale'
-    | '/$locale/about'
-    | '/$locale/login'
-    | '/$locale/dashboard'
-    | '/$locale/profile'
-  fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/$locale'
-    | '/$locale/about'
-    | '/$locale/login'
-    | '/$locale/dashboard'
-    | '/$locale/profile'
-  id:
-    | '__root__'
-    | '/'
-    | '/$locale/'
-    | '/$locale'
-    | '/$locale/_auth'
-    | '/$locale/about'
-    | '/$locale/login'
-    | '/$locale/_auth/dashboard'
-    | '/$locale/_auth/profile'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  LocaleIndexRouteRoute: typeof LocaleIndexRouteRoute
-  LocaleRoute: typeof LocaleRouteWithChildren
-}
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleIndexRouteRoute: LocaleIndexRouteRoute,
   LocaleRoute: LocaleRouteWithChildren,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/$locale/",
-        "/$locale"
-      ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/$locale/": {
-      "filePath": "$locale/index/route.tsx"
-    },
-    "/$locale": {
-      "filePath": "$locale/_auth",
-      "children": [
-        "/$locale/_auth",
-        "/$locale/about",
-        "/$locale/login"
-      ]
-    },
-    "/$locale/_auth": {
-      "filePath": "$locale/_auth/route.tsx",
-      "parent": "/$locale",
-      "children": [
-        "/$locale/_auth/dashboard",
-        "/$locale/_auth/profile"
-      ]
-    },
-    "/$locale/about": {
-      "filePath": "$locale/about/route.tsx",
-      "parent": "/$locale"
-    },
-    "/$locale/login": {
-      "filePath": "$locale/login/route.tsx",
-      "parent": "/$locale"
-    },
-    "/$locale/_auth/dashboard": {
-      "filePath": "$locale/_auth/dashboard/route.tsx",
-      "parent": "/$locale/_auth"
-    },
-    "/$locale/_auth/profile": {
-      "filePath": "$locale/_auth/profile/route.tsx",
-      "parent": "/$locale/_auth"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
